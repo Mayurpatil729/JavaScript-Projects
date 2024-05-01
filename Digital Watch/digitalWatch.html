@@ -1,0 +1,78 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #322c2b; /* Light black background */
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      .clockHolder {
+        width: 320px; /* Adjust as needed */
+        height: 90px; /* Adjust as needed */
+        background-color: #524c42;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .clock {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .mainDiv {
+        color: red;
+        font-family: "Times New Roman", Times, serif;
+        font-size: 3.4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="clockHolder">
+        <div class="timeHolder">
+          <div class="timeOptions">
+            <i class="fas fa-clock" data-title="Time"></i>
+            <i class="fas fa-stopwatch" data-title="StopWatch"></i>
+            <i class="fas fa-clock" data-title="CountDown"></i>
+          </div>
+          <div class="mainDiv">
+            <p id="clock"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const currentTime = () => {
+        let curTime = new Date().toLocaleTimeString(); // Add parentheses ()
+        document.getElementById("clock").innerText = curTime;
+        const date = new Date();
+        console.log(Date);
+      };
+
+      currentTime();
+      setInterval(() => {
+        currentTime();
+      }, 1000);
+
+      setTimeout(() => clearInterval(intervalId), 5000);
+    </script>
+  </body>
+</html>

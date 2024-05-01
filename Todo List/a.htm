@@ -1,0 +1,64 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Todo List</h1>
+      <form id="todo-form">
+        <div class="input-group">
+          <input type="text" id="inputValue" placeholder="Enter a new todo" />
+          <button type="submit" class="btn">Add Todo</button>
+        </div>
+      </form>
+      <ul id="todo-list" class="todo-list"></ul>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const todoForm = document.getElementById("todo-form");
+        const inputValue = document.getElementById("inputValue");
+        const todoList = document.getElementById("todo-list");
+        let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+        function renderTodos() {
+          todoList.innerHTML = "";
+          todos.forEach((todo, index) => {
+            const li = document.createElement("li");
+            li.textContent = todo;
+            li.innerHTML += `<button class="deleteBtn" data-index="${index}">Delete</button>`;
+            todoList.appendChild(li);
+          });
+        }
+
+        renderTodos();
+
+        todoForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const todoText = inputValue.value.trim();
+          if (todoText !== "") {
+            todos.push(todoText);
+            localStorage.setItem("todos", JSON.stringify(todos));
+            renderTodos();
+            inputValue.value = "";
+          }
+        });
+
+        todoList.addEventListener("click", function (e) {
+          if (e.target.classList.contains("deleteBtn")) {
+            const index = e.target.dataset.index;
+            todos.splice(index, 1);
+            localStorage.setItem("todos", JSON.stringify(todos));
+            renderTodos();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
